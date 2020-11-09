@@ -17,12 +17,20 @@ app.use(express.static('public'))
 app.get(`/`, (req, res) => {
   res.render(`index`, { restaurants: restaurantsList.results })
 })
-// Show page
-app.get(`/:restaurant_id`, (req, res) => {
+// Show function
+app.get(`/restaurants/:restaurant_id`, (req, res) => {
   const restaurant = restaurantsList.results.find(restaurant =>
     restaurant.id.toString() === req.params.restaurant_id
   )
   res.render('show', { restaurant: restaurant })
+})
+// Search function
+app.get(`/search`, (req, res) => {
+  const keyword = req.query.keyword
+  const restaurants = restaurantsList.results.filter(restaurant => {
+    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
+  })
+  res.render('index', { restaurants: restaurants, keyword: keyword })
 })
 
 // Start and listen the server
