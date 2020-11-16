@@ -4,7 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 const port = 3000
 const exphbs = require('express-handlebars')
-const restaurantsList = require('./restaurant.json')
+//const restaurantsList = require('./restaurant.json')
 
 // Setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -14,7 +14,7 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
 // Mongoose
-mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/restaurants', { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 db.on('error', () => {
   console.log('mongodb error!')
