@@ -99,3 +99,20 @@ header {
   }
   
 }
+
+#add-restaurant {
+  width: 100px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.new-page-input {
+  width: 600px;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
+.new-input {
+  margin: 5px auto;
+  width: 600px;
+}
