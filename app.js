@@ -106,16 +106,33 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
 })
+// Delete function
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Restaurants.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 // Search function
-//app.get(`/search`, (req, res) => {
-//  const keyword = req.query.keyword
-//  const restaurants = restaurantsList.results.filter(restaurant => {
-//    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
-//  })
-//  res.render('index', { restaurants: restaurants, keyword: keyword })
-//})
-
-
+app.get(`/search`, (req, res) => {
+  let keyword = req.query.keyword.trim()
+  return Restaurants.find({
+    $or: [
+      { name: new RegExp(keyword, 'i') }, // 以正規表達式尋找匹配變數 Keyword 的資料
+      { name_en: new RegExp(keyword, 'i') },
+      { category: new RegExp(keyword, 'i') }
+    ]
+  })
+    .lean()
+    .then(restaurants => {
+      if (!restaurants.length) {
+        keyword = `關鍵字：${keyword} 找不到結果！`
+      }
+      res.render('index', { restaurants, keyword })
+    })
+    .catch(error => console.log(error))
+})
 
 // Start and listen the server
 app.listen(port, () => {

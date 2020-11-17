@@ -5,8 +5,8 @@
       <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
-          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳" aria-label="Restaurant Name..."
-            value="{{keyword}}" aria-describedby="search-button">
+          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳的名稱、英文名稱或分類"
+            aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<a href="./restaurants/new">Create</a>
+<a href="./restaurants/new">新增餐廳</a>
 
 <!-- restaurant list -->
 <div class="container mt-5">
@@ -38,7 +38,10 @@
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
-              <a href="/restaurants/{{ this._id }}/edit">edit</a>
+              <a href="/restaurants/{{ this._id }}/edit">編輯</a>
+              <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline;">
+                <button type="submit">刪除</button>
+              </form>
             </div>
           </div>
         </a>
